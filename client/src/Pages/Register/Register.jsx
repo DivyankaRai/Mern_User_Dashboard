@@ -22,7 +22,7 @@ const Register = () => {
             data.append('confirm_password', formData.confirm_password);
             data.append('photo', formData.photo[0]); // Append the file
 
-            const response = await axios.post('http://localhost:8000/register', data, {
+            const response = await axios.post('https://mern-backendd-1.onrender.com/register', data, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

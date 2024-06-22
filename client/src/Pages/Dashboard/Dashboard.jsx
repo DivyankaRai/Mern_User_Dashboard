@@ -61,7 +61,7 @@ const Dashboard = () => {
 
       console.log(formDataToSubmit,userData)
 
-      const response = await axios.patch(`http://localhost:8000/update/${userData._id}`, formDataToSubmit, {
+      const response = await axios.patch(`https://mern-backendd-1.onrender.com/update/${userData._id}`, formDataToSubmit, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -81,7 +81,7 @@ const Dashboard = () => {
   // Function to handle logout
   const handleLogout = async () => {
     try {
-      const data = await axios.get('http://localhost:8000/logout');
+      const data = await axios.get('https://mern-backendd-1.onrender.com/logout');
       console.log(data);
       localStorage.removeItem('authToken');
       toast('User logged out Successfully', {

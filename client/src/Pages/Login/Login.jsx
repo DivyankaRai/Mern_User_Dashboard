@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../redux/actions/userActions'; 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; // Import Link
 import { ToastContainer, toast } from "react-toastify";
 import './Login.css';
 
@@ -18,7 +18,7 @@ const Login = () => {
   const onSubmit = async (data) => {
     console.log('Submitting login form with data:', data);
     try {
-      const res = await axios.post('http://localhost:8000/login', data);
+      const res = await axios.post('https://mern-backendd-1.onrender.com/login', data);
       console.log('Response:', res.data);
       
       const { token, user } = res.data.result;
@@ -63,7 +63,7 @@ const Login = () => {
           Login
         </button>
         <div className="create-account-link">
-          <p>Don't have an account? <a href="/signup" style={{ color: 'black', textDecoration: 'underline' }}>Create new account</a></p>
+          <p>Don't have an account? <Link to="/" style={{ color: 'black', textDecoration: 'underline' }}>Create new account</Link></p>
         </div>
       </form>
       <ToastContainer position="top-center"/>
