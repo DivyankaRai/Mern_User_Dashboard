@@ -1,0 +1,51 @@
+/* Navbar container */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: #f1256d;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    /* margin-bottom: 30px; */
+  }
+  
+  /* Logo link */
+  .logo {
+    text-decoration: none;
+    color: white;
+  }
+  
+  /* Navbar right section */
+  .navbar-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Dashboard link */
+  .nav-link {
+    margin-left: 20px;
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+  }
+  
+  /* Sign In button */
+  .sign-in-button {
+    padding: 10px 20px;
+    background-color: white;
+    color: #000080;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    text-decoration: none;
+    cursor: pointer;
+    margin-left: 20px;
+  }
+  
+  /* Sign In button hover effect */
+  .sign-in-button:hover {
+    background-color: lightgray;
+  }
+  
