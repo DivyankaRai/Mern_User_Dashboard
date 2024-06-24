@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Login from './Pages/Login/Login';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import Navbar from './Navbar';
+import Verify from './Pages/Login/Verify';
 
 function App() {
   const user = useSelector((state) => state.user);
@@ -23,6 +24,7 @@ function App() {
 <Router>
       <Navbar />
       <Routes>
+        <Route path="/verify" element={<Verify/>} />
         <Route path="/" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route 

@@ -6,9 +6,10 @@ const cookieParser = require('cookie-parser')
 require('./db/db')
 
 const app = express()
+
 app.use(cors({
-    origin: 'https://client-51bybkk6l-divyankarais-projects.vercel.app', // Replace with your frontend's URL
-    credentials: true // Required if your frontend and backend use cookies
+    origin: 'http://localhost:3000', 
+    credentials: true
 }));
 app.use(express.json())
 app.use(cookieParser())

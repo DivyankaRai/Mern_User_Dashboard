@@ -26,7 +26,7 @@ const Dashboard = () => {
     email: userData ? userData.email : '',
     phone: userData ? userData.phone : '',
     photo: userData ? userData.photo : '',
-    photoPreview: userData ? `https://mern-backendd-1.onrender.com/uploads/${userData.photo}` : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBCD3GkdMpP-CZxPAvsipaAYXeKlWR6bQV_Q&s',
+    photoPreview: userData ? `http://localhost:8000/uploads/${userData.photo}` : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBCD3GkdMpP-CZxPAvsipaAYXeKlWR6bQV_Q&s',
   });
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const Dashboard = () => {
         email: userData.email,
         phone: userData.phone,
         photo: userData.photo,
-        photoPreview: userData.photo ? `https://mern-backendd-1.onrender.com/uploads/${userData.photo}` : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBCD3GkdMpP-CZxPAvsipaAYXeKlWR6bQV_Q&s',
+        photoPreview: userData.photo ? `http://localhost:8000/uploads/${userData.photo}` : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBCD3GkdMpP-CZxPAvsipaAYXeKlWR6bQV_Q&s',
       });
     }
   }, [userData]);
@@ -55,7 +55,7 @@ const Dashboard = () => {
         formDataToSubmit.append('photo', formData.photoFile);
       }
 
-      const response = await axios.patch(`https://mern-backendd-1.onrender.com/update/${userData._id}`, formDataToSubmit, {
+      const response = await axios.patch(`http://localhost:8000/update/${userData._id}`, formDataToSubmit, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -72,7 +72,7 @@ const Dashboard = () => {
 
   const handleLogout = async () => {
     try {
-      const data = await axios.get('https://mern-backendd-1.onrender.com/logout');
+      const data = await axios.get('http://localhost:8000/logout');
       console.log(data);
       localStorage.removeItem('authToken');
       dispatch(logout())
