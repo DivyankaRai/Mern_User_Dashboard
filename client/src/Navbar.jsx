@@ -12,7 +12,7 @@ const Navbar = () => {
         <Link to="/dashboard" className="nav-link">
           Dashboard
         </Link>
-        <Link to="/" className="sign-in-button">
+        <Link to="/login" className="sign-in-button">
           Sign In
         </Link>
       </div>

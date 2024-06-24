@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { ToastContainer, toast } from "react-toastify";
-import './Register.css'; // Import the CSS file for styling
+import './Register.css'; 
 
 const Register = () => {
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
@@ -20,7 +20,7 @@ const Register = () => {
             data.append('phone', formData.phone);
             data.append('password', formData.password);
             data.append('confirm_password', formData.confirm_password);
-            data.append('photo', formData.photo[0]); // Append the file
+            data.append('photo', formData.photo[0]);
 
             const response = await axios.post('https://mern-backendd-1.onrender.com/register', data, {
                 headers: {
@@ -28,7 +28,7 @@ const Register = () => {
                 }
             });
             console.log('Response:', response.data);
-            toast('User logged in Successfully', {
+            toast.success('User logged in Successfully', {
                 onClose: () => navigate('/login') 
             });
 

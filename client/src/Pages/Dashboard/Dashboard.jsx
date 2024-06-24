@@ -8,43 +8,39 @@ import {
   Heading,
   Input,
   Stack,
-  useColorModeValue,
   Avatar,
-  Box,
 } from '@chakra-ui/react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
-import { loginSuccess } from '../../redux/actions/userActions'; 
+import { loginSuccess,logout } from '../../redux/actions/userActions'; 
 
 const Dashboard = () => {
   const { userData } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const [userPhoto, setUserPhoto] = useState(null);
   const navigate = useNavigate();
 
-  // Initialize formData state with userData
   const [formData, setFormData] = useState({
     name: userData ? userData.name : '',
     email: userData ? userData.email : '',
     phone: userData ? userData.phone : '',
-    photoFile: null, // Initialize photoFile to null initially
+    photo: userData ? userData.photo : '',
+    photoPreview: userData ? `https://mern-backendd-1.onrender.com/uploads/${userData.photo}` : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBCD3GkdMpP-CZxPAvsipaAYXeKlWR6bQV_Q&s',
   });
 
-  // Effect to update formData when userData changes
   useEffect(() => {
     if (userData) {
       setFormData({
         name: userData.name,
         email: userData.email,
         phone: userData.phone,
-        photoFile: null, // Reset photoFile when userData changes
+        photo: userData.photo,
+        photoPreview: userData.photo ? `https://mern-backendd-1.onrender.com/uploads/${userData.photo}` : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBCD3GkdMpP-CZxPAvsipaAYXeKlWR6bQV_Q&s',
       });
     }
   }, [userData]);
 
-  // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -52,14 +48,12 @@ const Dashboard = () => {
       formDataToSubmit.append('name', formData.name);
       formDataToSubmit.append('email', formData.email);
       formDataToSubmit.append('phone', formData.phone);
-      formDataToSubmit.append('password', userData.password); // Assuming password is needed for update
-      formDataToSubmit.append('confirm_password', userData.password); // Assuming confirmation of password
+      formDataToSubmit.append('password', userData.password); 
+      formDataToSubmit.append('confirm_password', userData.password); 
 
       if (formData.photoFile) {
         formDataToSubmit.append('photo', formData.photoFile);
       }
-
-      console.log(formDataToSubmit,userData)
 
       const response = await axios.patch(`https://mern-backendd-1.onrender.com/update/${userData._id}`, formDataToSubmit, {
         headers: {
@@ -67,39 +61,37 @@ const Dashboard = () => {
         }
       });
 
-      console.log(response.data)
-      let token= localStorage.getItem('authToken');
-      dispatch(loginSuccess({ token:token, userData: response.data }));
-      toast('User updated Successfully');
+      let token = localStorage.getItem('authToken');
+      dispatch(loginSuccess({ token: token, userData: response.data }));
+      toast.success('User updated Successfully');
     } catch (err) {
       console.error('Error updating user:', err);
-      console.log(userData)
       toast.error(err.message || 'An error occurred');
     }
   };
 
-  // Function to handle logout
   const handleLogout = async () => {
     try {
       const data = await axios.get('https://mern-backendd-1.onrender.com/logout');
       console.log(data);
       localStorage.removeItem('authToken');
-      toast('User logged out Successfully', {
-        onClose: () => navigate('/login') // Navigate to login page after toast is closed
+      dispatch(logout())
+      toast.success('User logged out Successfully', {
+        onClose: () => navigate('/login')
       });
     } catch (error) {
       console.error('Logout error:', error);
     }
   };
 
-  // Function to handle file input change (photo)
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    setUserPhoto(file); // Update userPhoto state
     if (file) {
+      const photoPreviewUrl = URL.createObjectURL(file);
       setFormData({
         ...formData,
         photoFile: file,
+        photoPreview: photoPreviewUrl,
       });
     }
   };
@@ -121,7 +113,7 @@ const Dashboard = () => {
               size="2xl"
               mb={'10px'}
               mt={'20px'}
-              src={userPhoto ? URL.createObjectURL(userPhoto) : (userData ? `http://localhost:8000/uploads/${userData.photo}` : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBCD3GkdMpP-CZxPAvsipaAYXeKlWR6bQV_Q&s')}
+              src={formData.photoPreview}
             />
             <label>
               <input

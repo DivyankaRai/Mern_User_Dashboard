@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../redux/actions/userActions'; 
-import { useNavigate, Link } from 'react-router-dom'; // Import Link
+import { useNavigate, Link } from 'react-router-dom';
 import { ToastContainer, toast } from "react-toastify";
 import './Login.css';
 
@@ -32,7 +32,7 @@ const Login = () => {
       reset();
       
     } catch (err) {
-      console.error('Error:', err.response.data.error);
+      console.error('Error:', err);
       toast.error(err.response.data.error || 'An error occurred');
       reset();
     }
